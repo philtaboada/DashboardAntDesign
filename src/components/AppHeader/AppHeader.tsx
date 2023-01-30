@@ -1,7 +1,7 @@
 import { BellFilled, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getComments, getOrders } from "../../API/index.js";
+import { getComments, getOrders } from "../../API/index";
 
 function AppHeader() {
   const [comments, setComments] = useState([]);
@@ -9,11 +9,15 @@ function AppHeader() {
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
+  interface Comment {
+    body: string;
+  }
+
   useEffect(() => {
-    getComments().then((res) => {
+    getComments().then((res: any) => {
       setComments(res.comments);
     });
-    getOrders().then((res) => {
+    getOrders().then((res: any) => {
       setOrders(res.products);
     });
   }, []);
@@ -21,7 +25,6 @@ function AppHeader() {
   return (
     <div className="AppHeader">
       <Image
-        href="/"
         width={40}
         src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
       ></Image>
@@ -54,7 +57,7 @@ function AppHeader() {
       >
         <List
           dataSource={comments}
-          renderItem={(item) => {
+          renderItem={(item: Comment) => {
             return <List.Item>{item.body}</List.Item>;
           }}
         ></List>
@@ -69,7 +72,7 @@ function AppHeader() {
       >
         <List
           dataSource={orders}
-          renderItem={(item) => {
+          renderItem={(item: any) => {
             return (
               <List.Item>
                 <Typography.Text strong>{item.title}</Typography.Text> has been
